@@ -1,0 +1,70 @@
+    {
+    "FORMATION_INFO": { 
+        "description": "L'utilisateur demande une information générale sur une formation.",
+        "tools": ["rag"]
+    },
+
+    "RECOMMANDATION": {
+        "description": "L'utilisateur demande quelle formation est la plus adaptée à son profil.",
+        "tools": ["ml", "rag"]
+    },
+
+    "FORMATION_MATIERES": {
+        "description": "L'utilisateur demande les matières ou enseignements d'une formation.",
+        "tools": ["rag"]
+    },
+
+
+
+
+
+
+
+
+    
+    "FORMATION_COMPETENCES": {
+        "description": "L'utilisateur demande les compétences développées par une formation.",
+        "tools": ["rag"]
+    },
+
+    "FORMATION_PREREQUIS": {
+        "description": "L'utilisateur demande les prérequis nécessaires pour une formation.",
+        "tools": ["rag", "rules"]
+    },
+
+    "FORMATION_DEBOUCHES": {
+        "description": "L'utilisateur demande les métiers ou débouchés associés à une formation.",
+        "tools": ["rag"]
+    },
+
+    "FORMATION_ADMISSION": {
+        "description": "L'utilisateur demande des informations sur la procédure ou les conditions d'admission.",
+        "tools": ["rag"]
+    },
+
+    "COMPARAISON_FORMATIONS": {
+        "description": "L'utilisateur souhaite comparer plusieurs formations.",
+        "tools": ["rag"]
+    },
+
+    "ANALYSE_PROFIL": {
+        "description": "L'utilisateur demande une analyse de son profil sans demander nécessairement une recommandation.",
+        "tools": ["ml"]
+    },
+
+
+    "EXPLICATION_RECOMMANDATION": {
+        "description": "L'utilisateur demande pourquoi une recommandation a été produite.",
+        "tools": ["ml", "rag"]
+    },
+
+    "CLARIFICATION": {
+        "description": "La demande est trop vague ou manque d'informations nécessaires.",
+        "tools": []
+    },
+
+    "HORS_SCOPE": {
+        "description": "La demande ne relève pas de l'orientation pédagogique ou demande une opération interdite.",
+        "tools": []
+    }
+    }
