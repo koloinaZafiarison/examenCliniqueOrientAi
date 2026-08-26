@@ -1,5 +1,150 @@
-{
-  "dataset": [{"name": "dataset_synthetique.csv", "type": "synthetic", "license": "internal"}],
-  "models": [{"name": "XGBoost"}, {"name": "Isolation Forest"}, {"name": "KNN"}],
-  "libraries": ["FastAPI", "LangGraph", "Qdrant", "Sentence-Transformers", "React"]
-}
+[
+  {
+    "id": "SRC-EXCEL-001",
+    "titre": "Référentiel Pédagogique et Cartographie des Formations ISPM",
+    "origine": "data/raw/referentiel_ispm_formations.xlsx",
+    "date_consultation": "2026-08-26",
+    "statut": "officiel",
+    "description": "Fichier Excel maître regroupant les maquettes, débouchés, compétences et passerelles de l'ISPM.",
+    "feuilles": [
+      {
+        "nom_feuille": "01_Formations_Matieres",
+        "sources_origines": [
+          {
+            "nom": "Site officiel ISPM",
+            "url": "https://ispm-edu.com/",
+            "statut": "officiel"
+          },
+          {
+            "nom": "Groupe Facebook de diffusion des emplois du temps ISPM",
+            "url": "https://facebook.com/groups/ispm",
+            "statut": "institutionnel"
+          }
+        ],
+        "donnees_extraites": [
+          "Liste des parcours et filières",
+          "Matières par niveau (L1 à M2)",
+          "Contenus des programmes pédagogiques",
+          "Description de chaque parcours"
+        ],
+        "limites_incertitudes": "Les emplois du temps publiés sur Facebook sont sujets à des ajustements en cours de semestre."
+      },
+      {
+        "nom_feuille": "Débouchés pro",
+        "sources_origines": [
+          {
+            "nom": "Fiche de présentation des diplômes ISPM",
+            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "statut": "officiel"
+          }
+        ],
+        "donnees_extraites": [
+          "Métiers et opportunités de carrière par parcours",
+          "Secteurs d'activité visés"
+        ],
+        "limites_incertitudes": "Les taux d'insertion professionnelle effectifs ne sont pas indiqués dans cette feuille."
+      },
+      {
+        "nom_feuille": "Relation(parcours, métiers, compétences)",
+        "sources_origines": [
+          {
+            "nom": "Référentiel compétences et métiers ISPM",
+            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "statut": "officiel"
+          }
+        ],
+        "donnees_extraites": [
+          "Matrice de correspondance entre parcours, métiers et compétences requises",
+          "Projections de carrière par profil"
+        ],
+        "limites_incertitudes": "Rapports établis sur des référentiels théoriques sans pondération par le marché du travail local."
+      },
+      {
+        "nom_feuille": "Eventuelle passerelle entre formations",
+        "sources_origines": [
+          {
+            "nom": "Règlement pédagogique ISPM",
+            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "statut": "officiel"
+          }
+        ],
+        "donnees_extraites": [
+          "Possibilités de réorientation entre filières"
+        ],
+        "limites_incertitudes": "Les passerelles nécessitent une validation au cas par cas par le comité pédagogique."
+      },
+      {
+        "nom_feuille": "Compétences développées",
+        "sources_origines": [
+          {
+            "nom": "Maquette d'habilitation des formations",
+            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "statut": "officiel"
+          }
+        ],
+        "donnees_extraites": [
+          "Compétences techniques (Hard Skills) et transversales (Soft Skills) par filière"
+        ],
+        "limites_incertitudes": "Auto-évaluation théorique des compétences sans grille d'évaluation pratique détaillée."
+      }
+    ],
+    "donnees_extraites_globales": [
+      "matieres",
+      "programmes_par_niveau",
+      "debouches_professionnels",
+      "graphe_parcours_metiers_competences",
+      "passerelles_admission",
+      "competences_developpees"
+    ],
+    "limites_incertitudes_globales": "Fichier consolidé à partir du site web et des publications institutionnelles ; données tarifaires à confirmer auprès du secrétariat."
+  },
+  {
+    "id": "DATA-001",
+    "titre": "Enquête d'Orientation et Retours d'Expérience (Google Forms)",
+    "origine": "data/raw/reponses_enquete_orientia.csv",
+    "date_consultation": "2026-08-26",
+    "statut": "externe",
+    "type_source": "Enquête de terrain / Collecte directe",
+    "modalites_collecte": {
+      "outil": "Google Forms",
+      "periode": "26/08/2026 - 27/08/2026",
+      "population_cible": "Étudiants actuels de l'ISPM et professionnels diplômés",
+      "volumetrie": {
+        "reponses_recues": 150,
+        "reponses_valides_retenues": 142,
+        "reponses_ecartees": 8
+      },
+      "rgpd_anonymisation": "Consentement explicite recueilli en début de formulaire. Suppression des colonnes contenant les emails et noms avant traitement."
+    },
+    "donnees_extraites": [
+      "Notes et niveau d'entrée des candidats",
+      "Centres d'intérêt et compétences déclarées",
+      "Filières effectivement suivies",
+      "Niveau de satisfaction et adéquation du parcours par rapport au métier occupé"
+    ],
+    "limites_incertitudes": "Échantillon basé sur du déclaratif volontaire (biais d'auto-sélection). Taille d'échantillon restreinte ne représentant pas l'exhaustivité des promotions historiques."
+  },
+  {
+    "id": "DATA-002",
+    "titre": "Jeu de données synthétiques pour l'entraînement des modèles de recommandation",
+    "origine": "data/processed/donnees_synthetiques_profiles.csv",
+    "date_consultation": "2026-08-26",
+    "statut": "externe",
+    "type_source": "Données synthétiques générées",
+    "modalites_generation": {
+      "methode": "Augmentation de données basées sur des règles métiers déductives et distributions statistiques",
+      "volumetrie_generee": 2000,
+      "variables_simulees": [
+        "notes_mathematiques",
+        "notes_programmation",
+        "interets_disciplinaires",
+        "filiere_recommandee_cible"
+      ]
+    },
+    "donnees_extraites": [
+      "Profils d'étudiants virtuels pour l'entraînement du modèle ML (Supervised Learning)",
+      "Vecteurs de caractéristiques (Features) pour l'algorithme de scoring"
+    ],
+    "limites_incertitudes": "Données purement théoriques servant à l'amorçage de l'algorithme. Elles reproduisent strictement les lois et distributions configurées au départ et nécessitent une ré-évaluation continue sur les données réelles (DATA-001)."
+  }
+]
