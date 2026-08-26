@@ -1,0 +1,1 @@
+export default function TraceViewer({ result }) { return <section><h2>Résultat</h2><pre>{result ? JSON.stringify(result, null, 2) : "Aucune analyse"}</pre></section>; }

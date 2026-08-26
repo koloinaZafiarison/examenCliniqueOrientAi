@@ -1,0 +1,11 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+sqlalchemy>=2.0
+psycopg[binary]>=3.2
+qdrant-client>=1.12
+sentence-transformers>=3.0
+xgboost>=2.1
+scikit-learn>=1.5
+joblib>=1.4
+langgraph>=0.2

@@ -1,0 +1,5 @@
+{
+  "dataset": [{"name": "dataset_synthetique.csv", "type": "synthetic", "license": "internal"}],
+  "models": [{"name": "XGBoost"}, {"name": "Isolation Forest"}, {"name": "KNN"}],
+  "libraries": ["FastAPI", "LangGraph", "Qdrant", "Sentence-Transformers", "React"]
+}
