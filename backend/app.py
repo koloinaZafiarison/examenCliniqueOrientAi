@@ -1,11 +1,22 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from backend.agents.orient_agent import orienter
+from backend.db.database import init_db
 from backend.gemini import generate_text
 
-app = FastAPI(title="Orient'AI API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Crée les tables au démarrage de l'application."""
+    init_db()
+    yield
+
+
+app = FastAPI(title="Orient'AI API", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -7,9 +7,10 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
-
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.5-flash"
+
+    database_url: str = "postgresql+psycopg://postgres:Dovahkiin150@localhost:5432/OrientAi"
 
 
 settings = Settings()
