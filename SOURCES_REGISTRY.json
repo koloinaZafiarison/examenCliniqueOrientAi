@@ -74,6 +74,24 @@
         "limites_incertitudes": "Les passerelles nécessitent une validation au cas par cas par le comité pédagogique."
       },
       {
+        "nom_feuille": "Conditions d'accès en L1",
+        "sources_origines": [
+          {
+            "nom": "Portail Web Officiel ISPM - Page Inscription & Admissions",
+            "url": "https://ispm-edu.com/inscription.php",
+            "date_consultation": "2026-08-26",
+            "statut": "officiel"
+          }
+        ],
+        "donnees_extraites": [
+          "Pièces à fournir pour la sélection de dossier (Diplôme/Attestation BAC, Bulletin 1ère/Terminale, Lettre de motivation)",
+          "Frais de sélection de dossier (30 000 Ar)",
+          "Règles d'éligibilité des séries du BAC par département (INFO-TEL, GCA, BIO-AGRO, TA, GI, TOUR)",
+          "Critère spécifique de note minimale en mathématiques (>= 12) pour la série A2 en Bio-Agronomie"
+        ],
+        "limites_incertitudes": "Les modalités de paiement à distance et les conditions d'équivalence pour les diplômes étrangers ne sont pas détaillées sur cette page."
+      },
+      {
         "nom_feuille": "Compétences développées",
         "sources_origines": [
           {
