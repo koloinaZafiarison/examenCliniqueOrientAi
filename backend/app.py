@@ -60,13 +60,7 @@ app.add_middleware(
     allow_headers=["*"],             # Allow all request headers
 )
 
-@app.post("/users/", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = models.User(**user.dict())
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+from agents.orient_agent import orienter
 
 
 @app.get("/users/", response_model=List[schemas.User])
