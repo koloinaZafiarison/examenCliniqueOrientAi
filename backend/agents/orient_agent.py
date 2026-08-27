@@ -23,17 +23,17 @@ load_dotenv()
 class OrientIAAgent:
 
     def __init__(self):
-        api_key = os.getenv("GOOGLE_API_KEY")
+        api_key = os.getenv("GEMINI_API_KEY")
 
         if not api_key:
             raise ValueError(
-                "GOOGLE_API_KEY est manquante dans les variables "
+                "GEMINI_API_KEY est manquante dans les variables "
                 "d'environnement ou le fichier .env"
             )
 
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-3.6-flash",
-            google_api_key=api_key,
+            model="gemini-3.5-flash",
+            GEMINI_API_KEY=api_key,
             temperature=0,
         )
 
