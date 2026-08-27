@@ -8,15 +8,6 @@ import {
   ChevronDown,
   ChevronRight,
   CircleHelp,
-  Clock3,
-  FileText,
-  FlaskConical,
-  GraduationCap,
-  Info,
-  Menu,
-  PanelRight,
-  Pencil,
-  Search,
   ShieldCheck,
   Sparkles,
   UserRound,
@@ -24,7 +15,6 @@ import {
   Wrench,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ScenarioDropdown } from "@/components/ui/scenario-dropdown";
 import {
   getScenarioById,
   toOrientationPayload,
@@ -481,13 +471,6 @@ export default function OrientiaWorkspace() {
                 {isSending && <TypingIndicator />}
               </div>
               <div className="composer">
-                <div className="composer-scenarios">
-                  <ScenarioDropdown
-                    value={selectedScenarioId}
-                    disabled={isSending}
-                    onValueChange={submitScenario}
-                  />
-                </div>
                 <textarea
                   value={draft}
                   onChange={(event) => setDraft(event.target.value)}
