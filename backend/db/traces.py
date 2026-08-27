@@ -1,7 +1,7 @@
 """Fonctions d'écriture et lecture des traces en base PostgreSQL."""
 
-from backend.db.database import SessionLocal
-from backend.db.models import Trace
+from db.database import SessionLocal
+from db.models import Trace
 
 
 def write_trace(trace: dict) -> None:

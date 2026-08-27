@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 
-from backend.db import models, schemas
-from backend.db.database import get_db
+from db import models, schemas
+from db.database import get_db
 import os
 from contextlib import asynccontextmanager
 
