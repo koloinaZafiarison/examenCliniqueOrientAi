@@ -1,8 +1,8 @@
-from backend.agents.security import validate_input
-from backend.agents.tools.anomaly_detector import detect_anomaly
-from backend.agents.tools.ml_scorer import score_profile
-from backend.agents.tools.recommender import recommend_formations
-from backend.rag.retriever import retrieve_context
+from agents.security import validate_input
+from agents.tools.anomaly_detector import detect_anomaly
+from agents.tools.ml_scorer import score_profile
+from agents.tools.recommender import recommend_formations
+from rag.retriever import retrieve_context
 
 
 def orienter(responses: dict[str, str]) -> dict:

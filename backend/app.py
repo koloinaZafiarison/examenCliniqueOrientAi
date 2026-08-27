@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
-from backend.agents.orient_agent import orienter
+from agents.orient_agent import orienter
 
 app = FastAPI(title="Orient'AI API", version="0.1.0")
 
