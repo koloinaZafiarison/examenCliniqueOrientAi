@@ -23,24 +23,90 @@ filieres_ispm = {
 tous_les_codes = list(filieres_ispm.keys())
 
 career_vers_filieres = {
-    "Software Engineer": ["IGGLIA"],
-    "Business Owner": ["CAA"],
-    "Banker": ["FIC"],
-    "Lawyer": ["DTJA"],
-    "Accountant": ["FIC"],
-    "Real Estate Developer": ["GCA"],
-    "Stock Investor": ["FIC"],
-    "Construction Engineer": ["GCA"],
-    "Game Developer": ["IMTICIA"],
-    "Government Officer": ["DTJA"],
-    "Scientist": ["ISAIA"],
-    "Social Network Studies": ["IMTICIA"],
-    "Doctor": ["PIP"],           
-    "Designer": ["IMTICIA"],     
-    "Writer": ["DTJA"],          
-    "Teacher": tous_les_codes,   
-}
 
+    # INFORMATIQUE / TÉLÉCOMMUNICATION
+    "Software Engineer": [
+        "IGGLIA",
+        "ISAIA",
+        "ESIIA",
+        "IMTICIA"
+    ],
+
+    "Game Developer": [
+        "IGGLIA",
+        "IMTICIA"
+    ],
+
+    "Social Network Studies": [
+        "IMTICIA",
+        "ISAIA"
+    ],
+
+    "Designer": [
+        "IMTICIA"
+    ],
+
+    # TECHNIQUES DES AFFAIRES
+
+    "Business Owner": [
+        "CAA"
+    ],
+
+    "Banker": [
+        "FIC"
+    ],
+
+    "Stock Investor": [
+        "FIC"
+    ],
+
+    "Accountant": [
+        "FIC"
+    ],
+
+    # DROIT
+
+    "Lawyer": [
+        "DTJA"
+    ],
+
+    "Government Officer": [
+        "DTJA"
+    ],
+
+    # GÉNIE CIVIL
+
+    "Real Estate Developer": [
+        "GCA"
+    ],
+
+    "Construction Engineer": [
+        "GCA"
+    ],
+
+    # SCIENCES / DATA
+
+    "Scientist": [
+        "ISAIA"
+    ],
+
+    # SANTÉ / PHARMACIE
+
+    "Doctor": [
+        "PIP"
+    ],
+
+    # COMMUNICATION / ÉCRITURE
+
+    "Writer": [
+        "DTJA",
+        "IMTICIA"
+    ],
+
+    # ENSEIGNEMENT
+
+    "Teacher": tous_les_codes,
+}
 
 def recommend_formations(profile_dict: dict, score_result: dict, n: int = 3) -> dict:
     """

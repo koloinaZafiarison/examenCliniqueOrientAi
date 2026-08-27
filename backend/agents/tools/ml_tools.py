@@ -8,6 +8,8 @@ import pandas as pd
 from langchain_core.tools import tool
 from pathlib import Path
 from typing import List, Dict, Any, Optional
+from agents.tools.ml_scorer import score_profile
+from agents.tools.recommender import recommend_formations
 
 # ------------------------------------------------------------------
 # 1. Configuration et chargement des artefacts
@@ -236,12 +238,27 @@ def analyser_profil_ml(profil_json: str) -> dict:
 @tool
 def analyser_et_scorer_profil(notes_et_interets: str) -> dict:
     """
-    [DÉPRÉCIÉ] Utilisez plutôt analyser_profil_ml avec un profil JSON.
+    À utiliser lorsque l'utilisateur fournit ses notes scolaires ou ses résultats académiques,
+    et qu'il souhaite une Recommandation d'Orientation basée sur le modèle ML de notes.
     """
+    profile_dict = {"description": notes_et_interets}
+    score = score_profile(profile_dict)
+    
+    # Vérification si des notes ont été trouvées
+    if not score.get("has_scores"):
+        return {
+            "status": "missing_scores",
+            "message": "Aucune note chiffrée n'a été détectée dans la demande.",
+            "source": "Modèle Machine Learning (Notes)"
+        }
+
+    recommendations = recommend_formations(profile_dict, score)
+    
     return {
-        "status": "deprecated",
-        "message": "Cet outil est basé sur des notes scolaires (non utilisées actuellement). "
-                   "Veuillez utiliser analyser_profil_ml avec un profil structuré en JSON."
+        "status": "success",
+        "notes_detectees": score["notes_extraites"],
+        "recommendations": recommendations,
+        "source": "Modèle Machine Learning (Notes)"
     }
 
 
