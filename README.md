@@ -13,12 +13,6 @@ Prototype d'orientation académique et professionnelle basé sur un questionnair
 
 ## Lien déploiement Front-End : https://examen-clinique-orient-ai.vercel.app/ 
 
-## Démarrage rapide
-
-```powershell
-docker compose up --build
-```
-
 API disponible sur `http://localhost:8000/docs`. Le frontend se lance séparément avec `cd frontend; npm install; npm run dev`.
 
 ## Structure
