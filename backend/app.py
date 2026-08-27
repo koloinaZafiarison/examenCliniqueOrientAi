@@ -8,8 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from db import models, schemas
-from db.database import get_db
 from agents.orient_agent import OrientIAAgent
 
 
@@ -85,105 +83,6 @@ class ChatRequest(BaseModel):
         description="Historique optionnel des échanges",
     )
 
-
-# ============================================================
-# UTILISATEURS
-# ============================================================
-
-@app.get(
-    "/users/",
-    response_model=List[schemas.User],
-)
-def read_users(
-    skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db),
-):
-    return (
-        db.query(models.User)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
-
-
-@app.get(
-    "/users/{user_id}",
-    response_model=schemas.User,
-)
-def read_user(
-    user_id: int,
-    db: Session = Depends(get_db),
-):
-    user = (
-        db.query(models.User)
-        .filter(models.User.id == user_id)
-        .first()
-    )
-
-    if not user:
-        raise HTTPException(
-            status_code=404,
-            detail="User not found",
-        )
-
-    return user
-
-
-@app.put(
-    "/users/{user_id}",
-    response_model=schemas.User,
-)
-def update_user(
-    user_id: int,
-    user: schemas.UserBase,
-    db: Session = Depends(get_db),
-):
-    db_user = (
-        db.query(models.User)
-        .filter(models.User.id == user_id)
-        .first()
-    )
-
-    if not db_user:
-        raise HTTPException(
-            status_code=404,
-            detail="User not found",
-        )
-
-    for key, value in user.dict().items():
-        setattr(db_user, key, value)
-
-    db.commit()
-    db.refresh(db_user)
-
-    return db_user
-
-
-@app.delete(
-    "/users/{user_id}",
-    response_model=schemas.User,
-)
-def delete_user(
-    user_id: int,
-    db: Session = Depends(get_db),
-):
-    user = (
-        db.query(models.User)
-        .filter(models.User.id == user_id)
-        .first()
-    )
-
-    if not user:
-        raise HTTPException(
-            status_code=404,
-            detail="User not found",
-        )
-
-    db.delete(user)
-    db.commit()
-
-    return user
 
 
 # ============================================================
