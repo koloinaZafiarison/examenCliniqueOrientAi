@@ -1,0 +1,49 @@
+# =========================
+# Environnements virtuels
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# Python - fichiers compilés
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# Tests / couverture
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# =========================
+# Outils Python
+# =========================
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# =========================
+# Variables d'environnement
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Builds / packages
+# =========================
+build/
+dist/
+*.egg-info/

@@ -1,10 +1,10 @@
-from dataclasses import dataclass
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, Boolean
+from backend.db.database import Base
 
-
-@dataclass
-class Trace:
-    request_id: str
-    created_at: datetime
-    event: str
-    payload: dict
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
+    phone = Column(String, nullable=True)
+    is_active = Column(Boolean, default=True)

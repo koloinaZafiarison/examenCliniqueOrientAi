@@ -1,10 +1,19 @@
-import json
-from pathlib import Path
+"""Fonctions d'écriture et lecture des traces en base PostgreSQL."""
+
+from backend.db.database import SessionLocal
+from backend.db.models import Trace
 
 
-def write_trace(trace: dict, path: str = "ml/data/traces_export.csv") -> None:
-    """Journal local minimal; remplacer par PostgreSQL en déploiement."""
-    target = Path(path)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    with target.open("a", encoding="utf-8") as stream:
-        stream.write(json.dumps(trace, ensure_ascii=True) + "\n")
+def write_trace(trace: dict) -> None:
+    """Persiste une trace dans PostgreSQL."""
+    db = SessionLocal()
+    try:
+        row = Trace(
+            request_id=trace.get("request_id", ""),
+            event=trace.get("event", ""),
+            payload=trace.get("payload", {}),
+        )
+        db.add(row)
+        db.commit()
+    finally:
+        db.close()

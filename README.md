@@ -1,3 +1,12 @@
+# QUICKSILVER 🤖
+
+## Institut Supérieur Polytechnique de Madagascar : http://www.ispm-edu.com/
+Membre de l'équipe **(IGGLIA 5)** et le rôle respectif de chacun: 
+  * **RANDRIANOELINA Liantsoa Harimisa                       ,n°14** 
+  * **ZAFIARISON Koloina Emile                               ,n°16**
+  * **RANDIMBINIRINA RAKOTOMANANA Yusha Andry Ny Aina        ,n°19**
+  * **RASOLONJATOVO Zo Heriniaina                            ,n°23**
+
 # Orient'AI
 
 Prototype d'orientation académique et professionnelle basé sur un questionnaire synthétique. L'application combine un score ML, une détection d'anomalies, une recommandation KNN et une recherche documentaire RAG.

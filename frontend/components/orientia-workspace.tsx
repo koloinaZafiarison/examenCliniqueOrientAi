@@ -24,6 +24,23 @@ import {
   Wrench,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ScenarioDropdown } from "@/components/ui/scenario-dropdown";
+import {
+  getScenarioById,
+  toOrientationPayload,
+  type Scenario,
+} from "@/lib/scenarios";
+
+import Image from 'next/image'
+import imageLogo from "../public/logoISPM.jpg"
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+type Recommendation = {
+  formation: string;
+  reason: string;
+};
 
 const profileFields = [
   { label: "Matières préférées", value: null },
@@ -82,8 +99,13 @@ export function ChatMessage({
   );
 }
 
-export function RecommendationCard() {
+export function RecommendationCard({
+  recommendations = [],
+}: {
+  recommendations?: Recommendation[];
+}) {
   const [expanded, setExpanded] = useState(false);
+  const hasRecommendations = recommendations.length > 0;
   return (
     <section
       className="recommendation-card"
@@ -91,32 +113,56 @@ export function RecommendationCard() {
     >
       <div className="card-heading">
         <div className="icon-box">
-          <GraduationCap />
+          
         </div>
         <div>
           <p className="eyebrow">Recommandations</p>
-          <h2>Vos parcours apparaîtront ici</h2>
+          <h2>
+            {hasRecommendations
+              ? "Parcours proposés"
+              : "Vos parcours apparaîtront ici"}
+          </h2>
         </div>
       </div>
-      <div className="empty-recommendation">
-        <div className="recommendation-line">
-          <span />
-          <span />
-          <span />
+      {hasRecommendations ? (
+        <div className="empty-recommendation">
+          {recommendations.map((item) => (
+            <p key={item.formation}>
+              <strong>{item.formation}</strong>
+              <br />
+              {item.reason}
+            </p>
+          ))}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? "Masquer les détails" : "Voir le fonctionnement"}{" "}
+            <ChevronDown />
+          </Button>
         </div>
-        <p>
-          Après quelques échanges, ORIENT’IA vous proposera des parcours adaptés
-          à votre profil et expliquera chaque recommandation.
-        </p>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? "Masquer les détails" : "Voir le fonctionnement"}{" "}
-          <ChevronDown />
-        </Button>
-      </div>
+      ) : (
+        <div className="empty-recommendation">
+          <div className="recommendation-line">
+            <span />
+            <span />
+            <span />
+          </div>
+          <p>
+            Après quelques échanges, ORIENT’IA vous proposera des parcours adaptés
+            à votre profil et expliquera chaque recommandation.
+          </p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? "Masquer les détails" : "Voir le fonctionnement"}{" "}
+            <ChevronDown />
+          </Button>
+        </div>
+      )}
       {expanded && (
         <div className="explanation">
           <Check /> Chaque score sera accompagné de facteurs explicatifs et de
@@ -157,7 +203,77 @@ export function ComparisonView() {
 export default function OrientiaWorkspace() {
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<React.ReactNode[]>([]);
+  const [selectedScenarioId, setSelectedScenarioId] = useState<string | null>(
+    null,
+  );
+  const [isSending, setIsSending] = useState(false);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
 
+  function appendMessages(...nodes: React.ReactNode[]) {
+    setMessages((current) => [...current, ...nodes]);
+  }
+
+  async function sendOrientation(scenario: Scenario) {
+    const payload = toOrientationPayload(scenario);
+    const response = await fetch(`${API_BASE_URL}/api/orient`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error(`Le serveur a répondu ${response.status}`);
+    }
+    return response.json() as Promise<{ recommendations?: Recommendation[] }>;
+  }
+
+  async function submitScenario(scenarioId: string) {
+    const scenario = getScenarioById(scenarioId);
+    if (!scenario || isSending) return;
+
+    setSelectedScenarioId(scenarioId);
+    setIsSending(true);
+    appendMessages(
+      <ChatMessage key={`${scenario.id}-user-${Date.now()}`} role="user">
+        {scenario.label}
+      </ChatMessage>,
+    );
+
+    try {
+      const data = await sendOrientation(scenario);
+      const nextRecommendations = data.recommendations ?? [];
+      setRecommendations(nextRecommendations);
+      appendMessages(
+        <ChatMessage
+          key={`${scenario.id}-assistant-${Date.now()}`}
+          role="assistant"
+        >
+          {nextRecommendations.length > 0 ? (
+            nextRecommendations.map((item) => (
+              <p key={item.formation}>
+                <strong>{item.formation}</strong> — {item.reason}
+              </p>
+            ))
+          ) : (
+            <p>Aucune recommandation n’a été renvoyée pour ce profil.</p>
+          )}
+        </ChatMessage>,
+      );
+    } catch {
+      appendMessages(
+        <ChatMessage
+          key={`${scenario.id}-error-${Date.now()}`}
+          role="assistant"
+        >
+          <p>
+            Impossible d’obtenir une orientation pour le moment. Vérifiez que
+            l’API est disponible, puis réessayez.
+          </p>
+        </ChatMessage>,
+      );
+    } finally {
+      setIsSending(false);
+    }
+  }
 
   //TODO: Send message to the server
   function sendMessage() {
@@ -174,10 +290,8 @@ export default function OrientiaWorkspace() {
   return (
     <main className="orientia-shell">
       <header className="topbar">
-        <div className="brand">
-          <div className="brand-mark pl-2">
-            <GraduationCap />
-          </div>
+        <div className="ml-10 brand ">
+          <Image className="h-20 w-20" src={imageLogo} alt="logo"/>
           <div>
             <strong>ORIENT'IA</strong>
           </div>
@@ -209,6 +323,13 @@ export default function OrientiaWorkspace() {
                 {messages}
               </div>
               <div className="composer">
+                <div className="composer-scenarios">
+                  <ScenarioDropdown
+                    value={selectedScenarioId}
+                    disabled={isSending}
+                    onValueChange={submitScenario}
+                  />
+                </div>
                 <textarea
                   value={draft}
                   onChange={(event) => setDraft(event.target.value)}
@@ -241,7 +362,7 @@ export default function OrientiaWorkspace() {
             </div>
         </section>
         <aside className="right-column">
-          <RecommendationCard />
+          <RecommendationCard recommendations={recommendations} />
           <ComparisonView />
         </aside>
       </div>
