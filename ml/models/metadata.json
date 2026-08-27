@@ -1,0 +1,37 @@
+{
+  "model": "LogisticRegression",
+  "features": [
+    "Quelle \u00e9tait votre s\u00e9rie au Baccalaur\u00e9at ?",
+    "Quelles \u00e9taient vos mati\u00e8res pr\u00e9f\u00e9r\u00e9es au lyc\u00e9e ?",
+    "Dans quelles mati\u00e8res vous \u00e9tiez dou\u00e9s?",
+    "Dans quelles activit\u00e9s pensez-vous \u00eatre naturellement \u00e0 l'aise ?",
+    "Parmi les activit\u00e9s suivantes, lesquelles vous attirent le plus ?",
+    "Quel type de probl\u00e8me aimez-vous le plus r\u00e9soudre ?",
+    "Quel type d'activit\u00e9 p\u00e9dagogique vous attire le plus ?",
+    "Aimez-vous plut\u00f4t la pratique ou les le\u00e7ons (th\u00e9orie) ?",
+    "Quel rythme de travail vous correspond le mieux ?",
+    "Dans quel environnement aimeriez-vous travailler ?",
+    "Quels sont vos domaines d'int\u00e9r\u00eat principaux ?",
+    "Pr\u00e9f\u00e9rez-vous travailler principalement",
+    "Qu'est-ce qui est le plus important pour vous dans le choix d'une formation ?"
+  ],
+  "classes": [
+    "AEE",
+    "CAA",
+    "DTJA",
+    "EMII",
+    "EMP",
+    "ESIIA",
+    "FIC",
+    "GCA",
+    "IAA",
+    "ICMP",
+    "IGGLIA",
+    "IMTICIA",
+    "ISAIA",
+    "PIP",
+    "TEH"
+  ],
+  "f1_score_val": 0.1437243050946498,
+  "date": "2026-08-27 07:49:23.577907"
+}
