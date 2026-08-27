@@ -1,54 +1,47 @@
-from contextlib import asynccontextmanager
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from typing import List
 
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from backend.db import models, schemas
+from backend.db.database import get_db
 
-from backend.agents.orient_agent import orienter
-from backend.db.database import init_db
-from backend.gemini import generate_text
+app = FastAPI(title="FastAPI with PostgreSQL")
 
+@app.post("/users/", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = models.User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Crée les tables au démarrage de l'application."""
-    init_db()
-    yield
+@app.get("/users/", response_model=List[schemas.User])
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return db.query(models.User).offset(skip).limit(limit).all()
 
+@app.get("/users/{user_id}", response_model=schemas.User)
+def read_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
-app = FastAPI(title="Orient'AI API", version="0.1.0", lifespan=lifespan)
+@app.put("/users/{user_id}", response_model=schemas.User)
+def update_user(user_id: int, user: schemas.UserBase, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    for key, value in user.dict().items():
+        setattr(db_user, key, value)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-class OrientationRequest(BaseModel):
-    responses: dict[str, str] = Field(default_factory=dict)
-
-
-class ChatRequest(BaseModel):
-    message: str = Field(min_length=1, max_length=8000)
-
-
-@app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
-
-
-@app.post("/api/orient")
-def orientation(request: OrientationRequest) -> dict:
-    return orienter(request.responses)
-
-
-@app.post("/api/chat")
-def chat(request: ChatRequest) -> dict[str, str]:
-    try:
-        reply = generate_text(request.message)
-    except RuntimeError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
-    return {"reply": reply}
+@app.delete("/users/{user_id}", response_model=schemas.User)
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user)
+    db.commit()
+    return user

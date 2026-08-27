@@ -1,22 +1,18 @@
-"""Configuration de la session SQLAlchemy pour PostgreSQL."""
-
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
+# from backend.config import settings
 
-from backend.config import settings
+# Use psycopg (v3) driver instead of psycopg2 to avoid
+# UnicodeDecodeError with libpq 18.x on Windows
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Dovahkiin150@localhost:5432/OrientAi"
 
-engine = create_engine(settings.database_url, echo=False, pool_pre_ping=True)
-
-SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
-
-
-class Base(DeclarativeBase):
-    """Classe de base pour tous les modèles SQLAlchemy."""
-    pass
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 
 
 def get_db():
-    """Générateur de session pour l'injection de dépendance FastAPI."""
+    """Dependency that provides a database session per request."""
     db = SessionLocal()
     try:
         yield db
@@ -24,7 +20,7 @@ def get_db():
         db.close()
 
 
-def init_db() -> None:
-    """Crée toutes les tables définies dans les modèles."""
+def init_db():
+    """Create all tables defined in the models."""
     Base.metadata.create_all(bind=engine)
 
