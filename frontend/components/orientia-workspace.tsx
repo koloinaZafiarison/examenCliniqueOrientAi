@@ -26,7 +26,7 @@ import imageLogo from "../public/logoISPM.jpg"
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
-
+const API_URL = "https://examen-clinique-orient-ai-4pyd.vercel.app/"
 type Recommendation = {
   formation: string;
   reason: string;
@@ -308,7 +308,7 @@ export default function OrientiaWorkspace() {
 
   // --- Appel générique au backend de chat ---
   async function sendChatMessage(message: string) {
-    const response = await fetch(`${API_BASE_URL}/chat`, {
+    const response = await fetch(`${API_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -326,7 +326,7 @@ export default function OrientiaWorkspace() {
 
   async function sendOrientation(scenario: Scenario) {
     const payload = toOrientationPayload(scenario);
-    const response = await fetch(`${API_BASE_URL}/orient`, {
+    const response = await fetch(`${API_URL}/orient`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
