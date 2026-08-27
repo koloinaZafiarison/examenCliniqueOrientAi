@@ -12,5 +12,17 @@ xgboost>=2.1
 scikit-learn>=1.5
 joblib>=1.4
 langgraph>=0.2
+
 python-dotenv>=1.0.1
 psycopg2-binary>=2.9.9
+
+pandas
+openpyxl
+python-dotenv
+rank-bm25
+faiss-cpu
+huggingface_hub
+langchain-google-genai
+langchain-classic
+
+huggingface-hub>=0.25

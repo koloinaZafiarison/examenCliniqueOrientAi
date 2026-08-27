@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -5,8 +6,44 @@ from typing import List
 
 from backend.db import models, schemas
 from backend.db.database import get_db
+import os
+from contextlib import asynccontextmanager
+
+from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+from agents.orient_agent import OrientIAAgent
+#from rag.retriever import init_rag_index
+from agents.orient_agent import OrientIAAgent
+
+load_dotenv()
+
+agent_service: OrientIAAgent | None = None
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # --- Startup ---
+    #init_rag_index()          # construit l'index FAISS + BM25 une seule fois
+    global agent_service
+    agent_service = OrientIAAgent()
+    print("Agent ORIENT'IA et index RAG prêts.")
+    yield
+
+
+app = FastAPI(title="Orient'AI API", version="0.1.0", lifespan=lifespan)
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(
+        ...,
+        description="Le message ou la question du candidat (ex: 'J'ai eu 15 en maths, quelle filière me convient ?')",
+        example="J'ai eu 16 en programmation et 12 en maths, quelle filière me correspond ?",
+    )
+    chat_history: list = Field(
+        default_factory=list,
+        description="L'historique optionnel des échanges sous forme de liste",
+    )
 
 app = FastAPI(title="FastAPI with PostgreSQL")
 
@@ -30,6 +67,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     return db_user
+
 
 @app.get("/users/", response_model=List[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -61,3 +99,24 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(user)
     db.commit()
     return user
+
+@app.post("/chat")
+def chat(request: ChatRequest) -> dict:
+    """
+    Point d'entrée unique du candidat.
+    L'agent OrientIAAgent décide en interne, via ses tools LangChain,
+    s'il doit utiliser rechercher_informations_ispm (RAG) et/ou
+    analyser_et_scorer_profil (ML), puis renvoie une réponse unifiée.
+    """
+    try:
+        result = agent_service.run(
+            user_message=request.message,
+            chat_history=request.chat_history,
+        )
+        return result
+    except ValueError as e:
+        # Erreurs de sécurité (ex: tentative d'injection de prompt)
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur interne du serveur : {str(e)}")
+

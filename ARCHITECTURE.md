@@ -1,4 +1,4 @@
-# 🏗️ Architecture du système ORIENT'IA
+# Architecture du système ORIENT'IA
 
 Ce document présente l'architecture globale de la plateforme **ORIENT'IA**, un assistant intelligent d'orientation académique de l'ISPM.
 
