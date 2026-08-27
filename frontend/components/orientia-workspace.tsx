@@ -31,6 +31,9 @@ import {
   type Scenario,
 } from "@/lib/scenarios";
 
+import Image from 'next/image'
+import imageLogo from "../public/logoISPM.jpg"
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -110,7 +113,7 @@ export function RecommendationCard({
     >
       <div className="card-heading">
         <div className="icon-box">
-          <GraduationCap />
+          
         </div>
         <div>
           <p className="eyebrow">Recommandations</p>
@@ -287,10 +290,8 @@ export default function OrientiaWorkspace() {
   return (
     <main className="orientia-shell">
       <header className="topbar">
-        <div className="brand">
-          <div className="brand-mark pl-2">
-            <GraduationCap />
-          </div>
+        <div className="ml-10 brand ">
+          <Image className="h-20 w-20" src={imageLogo} alt="logo"/>
           <div>
             <strong>ORIENT'IA</strong>
           </div>
