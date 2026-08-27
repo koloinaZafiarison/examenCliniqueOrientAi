@@ -2,7 +2,8 @@ from agents.security import validate_input
 from agents.tools.anomaly_detector import detect_anomaly
 from agents.tools.ml_scorer import score_profile
 from agents.tools.recommender import recommend_formations
-from rag.retriever import retrieve_context
+import os
+from dotenv import load_dotenv
 
 from agents.security import validate_input
 from agents.tools.ml_tools import (
