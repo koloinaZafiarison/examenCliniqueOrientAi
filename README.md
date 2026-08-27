@@ -13,7 +13,7 @@ Prototype d'orientation académique et professionnelle basé sur un questionnair
 
 ## Lien déploiement Front-End : https://examen-clinique-orient-ai.vercel.app/ 
 
-## Lien Démo Video : https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F18PCHbnAFYxUlO68PlMx0ci8irQN-mBdC%2Fview%3Fusp%3Ddrivesdk%26fbclid%3DIwcGRvZgVleHRuA2FlbQIxMABicmlkETFlbjNQUWMyb0pIVE9Bbmg1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHmqvyO4s2vz67vpUZp39xdu841VABMuBSQt95K_HWtQ_YZZ0XZuFWDQddT5o_aem_ryEQwN__f-lFL-udF7m3YQ&h=AUCAtGjN-wzdQ37STxdXiQFEscPtkM2_OMjcKurhi_WQ0bHu6MXHoxetH2Yh6KSfZh-PNkZn53UPbrELwC2LCTIzes105BPuRTsCqKHyx2sfxu_z79RD952sjyTr7UvEjirz1A
+## Lien Démo Video : https://drive.google.com/file/d/18PCHbnAFYxUlO68PlMx0ci8irQN-mBdC/view?fbclid=IwY2xjawT9eCxwZG9mBWV4dG4DYWVtAjEwAGJyaWQRMWVuM1BRYzJvSkhUT0FuaDVzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeaq_I7iza_Pru-lRmnf3F27zjVUAEy4FJC33kr8da1D9hlnRdm4VYNB11Pmg_aem_ryEQwN__f-lFL-udF7m3YQ
 
 
 ## Structure
@@ -148,7 +148,7 @@ Une description textuelle est également disponible dans le fichier ARCHITECTURE
 
  ### **Livrable 13** : Vidéo de présentation de 3 à 5 minutes
 
-Une vidéo de démonstration (format MP4) est disponible dans  https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F18PCHbnAFYxUlO68PlMx0ci8irQN-mBdC%2Fview%3Fusp%3Ddrivesdk%26fbclid%3DIwcGRvZgVleHRuA2FlbQIxMABicmlkETFlbjNQUWMyb0pIVE9Bbmg1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHmqvyO4s2vz67vpUZp39xdu841VABMuBSQt95K_HWtQ_YZZ0XZuFWDQddT5o_aem_ryEQwN__f-lFL-udF7m3YQ&h=AUCAtGjN-wzdQ37STxdXiQFEscPtkM2_OMjcKurhi_WQ0bHu6MXHoxetH2Yh6KSfZh-PNkZn53UPbrELwC2LCTIzes105BPuRTsCqKHyx2sfxu_z79RD952sjyTr7UvEjirz1A .  
+Une vidéo de démonstration (format MP4) est disponible dans  https://drive.google.com/file/d/18PCHbnAFYxUlO68PlMx0ci8irQN-mBdC/view?fbclid=IwY2xjawT9eCxwZG9mBWV4dG4DYWVtAjEwAGJyaWQRMWVuM1BRYzJvSkhUT0FuaDVzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeaq_I7iza_Pru-lRmnf3F27zjVUAEy4FJC33kr8da1D9hlnRdm4VYNB11Pmg_aem_ryEQwN__f-lFL-udF7m3YQ .  
 Elle montre le système en fonctionnement :
 
 - Lancement de l’agent.
