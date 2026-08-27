@@ -308,7 +308,7 @@ export default function OrientiaWorkspace() {
 
   // --- Appel générique au backend de chat ---
   async function sendChatMessage(message: string) {
-    const response = await fetch(`${API_URL}/chat`, {
+    const response = await fetch(`${API_BASE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -326,7 +326,7 @@ export default function OrientiaWorkspace() {
 
   async function sendOrientation(scenario: Scenario) {
     const payload = toOrientationPayload(scenario);
-    const response = await fetch(`${API_URL}/orient`, {
+    const response = await fetch(`${API_BASE_URL}/orient`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -445,7 +445,7 @@ export default function OrientiaWorkspace() {
           </span>
         </div>
       </header>
-      <div className="workspace-grid">
+      <div className="">
         <section className="main-column">
             <div className="chat-screen">
               <div className="chat-heading">
@@ -501,10 +501,10 @@ export default function OrientiaWorkspace() {
               </div>
             </div>
         </section>
-        <aside className="right-column">
+        {/*<aside className="right-column">
           <RecommendationCard recommendations={recommendations} />
           <ComparisonView />
-        </aside>
+        </aside>*/}
       </div>
     </main>
   );
