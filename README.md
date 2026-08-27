@@ -64,17 +64,7 @@ Les données fournies sont synthétiques. Le système ne réalise aucun diagnost
   Le questionnaire d’enquête, les Datasets est inclus dans le dossier ml/data/.
   Le notebook contient le code pour charger, nettoyer et harmoniser les deux sources.
 
-- ### **Livrable 4** : Le registre des sources est intégré dans le notebook Modèle_orientation_ML_.ipynb (cellules d’EDA et de preprocessing). Il mentionne :
-
-  Source des données synthétiques : générées localement.
-
-  Source des données réelles : questionnaire en ligne, avec anonymisation.
-
-  Période de collecte : 26 août 2026.
-
-  Nombre de réponses reçues et retenues.
-
-  Biais d’échantillonnage signalés.
+- ### **Livrable 4** : Le registre des sources se trouve dans le fichier SOURCES_REGISTRY.json du répertoire racine.
 
 - ### **Livrable 5** : Jeu de données utilisé pour le Machine Learning
 
