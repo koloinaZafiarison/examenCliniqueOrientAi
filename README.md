@@ -2,10 +2,10 @@
 
 ## Institut Supérieur Polytechnique de Madagascar : http://www.ispm-edu.com/
 Membre de l'équipe **(IGGLIA 5)** et le rôle respectif de chacun: 
-  * **RANDRIANOELINA Liantsoa Harimisa                       ,n°14** 
-  * **ZAFIARISON Koloina Emile                               ,n°16**
-  * **RANDIMBINIRINA RAKOTOMANANA Yusha Andry Ny Aina        ,n°19**
-  * **RASOLONJATOVO Zo Heriniaina                            ,n°23**
+  * **RANDRIANOELINA Liantsoa Harimisa                       ,n°14** : Collecte de données RAG et  implémentation de l'agent routeur.
+  * **ZAFIARISON Koloina Emile                               ,n°16** : Collecte de données synthétique et le Front-End de l'application.
+  * **RANDIMBINIRINA RAKOTOMANANA Yusha Andry Ny Aina        ,n°19** : Mise en place des données sur les Enquetes et création des Endpoints du backend.
+  * **RASOLONJATOVO Zo Heriniaina                            ,n°23** : Collecte de données synthétique et création du modèle Machine Learning.
 
 # Orient'AI
 
