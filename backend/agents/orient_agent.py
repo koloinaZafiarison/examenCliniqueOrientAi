@@ -27,13 +27,13 @@ class OrientIAAgent:
 
         if not api_key:
             raise ValueError(
-                "GEMINI_API_KEY est manquante dans les variables "
+                "GOOGLE_API_KEY est manquante dans les variables "
                 "d'environnement ou le fichier .env"
             )
 
         self.llm = ChatGoogleGenerativeAI(
             model="gemini-3.5-flash",
-            GEMINI_API_KEY=api_key,
+            google_api_key=api_key,
             temperature=0,
         )
 
