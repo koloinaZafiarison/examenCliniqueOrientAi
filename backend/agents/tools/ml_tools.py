@@ -9,6 +9,7 @@ from langchain_core.tools import tool
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from agents.tools.ml_scorer import score_profile
+from agents.tools.recommender import recommend_formations
 
 # ------------------------------------------------------------------
 # 1. Configuration et chargement des artefacts
