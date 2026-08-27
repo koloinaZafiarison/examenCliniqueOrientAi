@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from backend.rag.retriever import retrieve_context
+from rag.retriever import retrieve_context
 
 @tool
 def rechercher_informations_ispm(query: str) -> str:
