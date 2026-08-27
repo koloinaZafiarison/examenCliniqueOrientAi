@@ -9,7 +9,10 @@ from langchain_classic.agents import (
 )
 from langchain_core.prompts import ChatPromptTemplate
 
-from agents.security import validate_input
+from agents.security import (
+    validate_input,
+    is_sensitive_message,
+)
 from agents.tools.ml_tools import (
     analyser_et_scorer_profil,
     analyser_personnalite_et_interets,
@@ -76,6 +79,13 @@ class OrientIAAgent:
         ("system", """
         Tu es ORIENT'IA, l'assistant d'orientation de l'ISPM. Ton rôle unique est d'orienter l'utilisateur en routant sa demande vers le BON outil.
 
+        Tu es ORIENT'IA, l'assistant d'orientation de l'ISPM. Ton rôle EXCLUSIF est l'orientation scolaire et professionnelle à l'ISPM.
+
+        0. SI LA DEMANDE N'EST PAS LIÉE À L'ORIENTATION OU À L'ISPM (ex: voyage, formalités pour aller en France, cuisine, météo, culture générale...) :
+        - ACTION : NE FAIS APPEL À AUCUN OUTIL (ni RAG, ni ML).
+        - RÉPONSE : Rappelle poliment ton rôle exact, décline la réponse car elle sort de tes compétences, puis repose une question ouverte pour aider l'utilisateur dans son orientation.
+        - EXEMPLE DE RÉPONSE : "Je suis ORIENT'IA, spécialisé uniquement dans l'orientation scolaire et professionnelle pour l'ISPM. Je ne peux pas vous aider pour les démarches de voyage ou de visa. Souhaitez-vous plutôt des informations sur nos filières ou de l'aide pour choisir votre parcours académique ?"
+
         RÈGLE D'OR : ARBRE DE DÉCISION (À SUIVRE DANS L'ORDRE)
 
         1. SI LE MESSAGE CONTIENT DES NOTES CHIFFRÉES (ex: "j'ai 12", "15/20", "moyenne de 14 en maths", "note 10") :
@@ -138,10 +148,26 @@ class OrientIAAgent:
         chat_history: list = None,
     ) -> dict:
 
-        # Validation de l'entrée utilisateur
+        # 1. VALIDATION DE L'ENTRÉE
         clean_message = validate_input(user_message)
 
-        # Exécution de l'agent
+        # 2. GARDE-FOU DE SÉCURITÉ
+        if is_sensitive_message(clean_message):
+
+            return {
+                "response": (
+                    "Je suis désolé que vous traversiez un moment difficile. "
+                    "ORIENT'IA est spécialisé dans l'orientation scolaire et "
+                    "professionnelle et ne peut pas gérer correctement ce type "
+                    "de situation.."
+                ),
+                "status": "blocked",
+                "route": "safety",
+                "tools": [],
+            }
+
+        # 3. EXÉCUTION DE L'AGENT
+
         result = self.agent_executor.invoke({
             "input": clean_message,
             "chat_history": chat_history or [],
