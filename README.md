@@ -144,17 +144,8 @@ Une description textuelle est également disponible dans le fichier ARCHITECTURE
 
 ---
 
-### **Livrable 12** :  Note présentant les limites, les biais et les risques
+### **Livrable 12** :  Note présentant les limites, les biais et les risques se trouve dans le fichier SECURITY_BIAS_LOG.md dans le répertoire racine.
 
-La note est intégrée dans le rapport final (section « Biais et limites ») et dans le notebook (cellule 15). Elle aborde :
-
-- **Biais des données synthétiques** : générées par règles, pouvant ne pas refléter la réalité.
-- **Déséquilibre des classes** : certaines filières (ex. AEE, ICMP) sont sous‑représentées.
-- **Modèle linéaire** : la régression logistique ne capture pas les interactions complexes.
-- **Taille de l’échantillon réel** : seulement 36 réponses, intervalles de confiance larges.
-- **Auto‑sélection** : les répondants à l’enquête sur‑représentent certains parcours.
-- **Utilisation** : le modèle est une **aide à la décision**, pas une décision officielle.
-- **Recommandations** : éviter le profilage psychologique, ne pas utiliser de caractéristiques sensibles.
 
 ---
 
