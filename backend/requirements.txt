@@ -12,3 +12,5 @@ xgboost>=2.1
 scikit-learn>=1.5
 joblib>=1.4
 langgraph>=0.2
+python-dotenv>=1.0.1
+psycopg2-binary>=2.9.9
