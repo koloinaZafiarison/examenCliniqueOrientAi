@@ -11,6 +11,8 @@ Membre de l'équipe **(IGGLIA 5)** et le rôle respectif de chacun:
 
 Prototype d'orientation académique et professionnelle basé sur un questionnaire synthétique. L'application combine un score ML, une détection d'anomalies, une recommandation KNN et une recherche documentaire RAG.
 
+## Lien déploiement Front-End : https://examen-clinique-orient-ai.vercel.app/ 
+
 ## Démarrage rapide
 
 ```powershell
