@@ -1,11 +1,27 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 
 from backend.db import models, schemas
 from backend.db.database import get_db
 
+
+
 app = FastAPI(title="FastAPI with PostgreSQL")
+
+origins = [
+    "http://localhost:3000",      # React/Next.js local server
+    "http://localhost:5173",      # Vite local server
+    # "https://yourfrontend.com",   # Production domain
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,           # Allowed domains list
+    allow_credentials=True,          # Allow cookies and auth headers
+    allow_methods=["*"],             # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],             # Allow all request headers
+)
 
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
