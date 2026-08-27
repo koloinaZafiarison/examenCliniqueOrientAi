@@ -2,7 +2,7 @@
   {
     "id": "SRC-EXCEL-001",
     "titre": "Référentiel Pédagogique et Cartographie des Formations ISPM",
-    "origine": "data/raw/referentiel_ispm_formations.xlsx",
+    "origine": "RAG/ORIENT_IA_Dataset_Niveaux_1_a_5.xlsx",
     "date_consultation": "2026-08-26",
     "statut": "officiel",
     "description": "Fichier Excel maître regroupant les maquettes, débouchés, compétences et passerelles de l'ISPM.",
@@ -17,7 +17,7 @@
           },
           {
             "nom": "Groupe Facebook de diffusion des emplois du temps ISPM",
-            "url": "https://facebook.com/groups/ispm",
+            "url": "https://www.facebook.com/groups/499551365105203/",
             "statut": "institutionnel"
           }
         ],
@@ -34,7 +34,7 @@
         "sources_origines": [
           {
             "nom": "Fiche de présentation des diplômes ISPM",
-            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "url": "referentiel_ispm_formations.xlsx",
             "statut": "officiel"
           }
         ],
@@ -49,7 +49,7 @@
         "sources_origines": [
           {
             "nom": "Référentiel compétences et métiers ISPM",
-            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "url": "https://ispm-edu.com/filieres.php",
             "statut": "officiel"
           }
         ],
@@ -64,7 +64,7 @@
         "sources_origines": [
           {
             "nom": "Règlement pédagogique ISPM",
-            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "url": "https://ispm-edu.com/",
             "statut": "officiel"
           }
         ],
@@ -95,8 +95,8 @@
         "nom_feuille": "Compétences développées",
         "sources_origines": [
           {
-            "nom": "Maquette d'habilitation des formations",
-            "url": "data/raw/referentiel_ispm_formations.xlsx",
+            "nom": "Déduction par rapport aux matières étudiées",
+            "url": "https://www.facebook.com/groups/499551365105203/",
             "statut": "officiel"
           }
         ],
@@ -119,7 +119,7 @@
   {
     "id": "DATA-001",
     "titre": "Enquête d'Orientation et Retours d'Expérience (Google Forms)",
-    "origine": "data/raw/reponses_enquete_orientia.csv",
+    "origine": "ml/data/Réponse enquête - Réponses au formulaire 1.csv",
     "date_consultation": "2026-08-26",
     "statut": "externe",
     "type_source": "Enquête de terrain / Collecte directe",
@@ -145,7 +145,7 @@
   {
     "id": "DATA-002",
     "titre": "Jeu de données synthétiques pour l'entraînement des modèles de recommandation",
-    "origine": "data/processed/donnees_synthetiques_profiles.csv",
+    "origine": "data/donnees_synthetiques_finales.csv",
     "date_consultation": "2026-08-26",
     "statut": "externe",
     "type_source": "Données synthétiques générées",
