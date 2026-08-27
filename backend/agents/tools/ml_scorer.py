@@ -9,6 +9,7 @@ REPO_ID = "DisMisa/oreint-ia-models"
 
 MODEL_FILENAME = "career_prediction_model.pkl"
 LABEL_ENCODER_FILENAME = "label_encoder_recommendation_by_note.pkl"
+IMPUTER_FILENAME = "imputer.pkl"
 
 # Chargement automatique des artefacts depuis Hugging Face Hub
 model_path = hf_hub_download(
@@ -21,9 +22,14 @@ label_encoder_path = hf_hub_download(
     filename=LABEL_ENCODER_FILENAME
 )
 
+imputer_path = hf_hub_download(
+    repo_id=REPO_ID,
+    filename=IMPUTER_FILENAME
+)
 
 model = joblib.load(model_path)
 label_encoder = joblib.load(label_encoder_path)
+imputer = joblib.load(imputer_path)
 
 score_cols = [
     'math_score', 'history_score', 'physics_score', 
