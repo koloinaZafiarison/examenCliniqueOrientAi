@@ -29,7 +29,7 @@ _scaler = None
 _feature_cols = None
 _label_encoder = None
 _model_name = None
-_priority_cols = None  # sera défini dans le chargement
+_priority_cols = None
 
 
 def _load_artifacts():
@@ -53,13 +53,9 @@ def _load_artifacts():
         _label_encoder = None
 
     # Définition des colonnes prioritaires pour les questions
-    # On prend les 5 premières features "importantes" si disponible, sinon une liste par défaut
     _priority_cols = [
         "Quelle était votre série au Baccalauréat ?",
-        "Quelles étaient vos matières préférées au lycée ?",
-        "Dans quelles activités pensez-vous être naturellement à l'aise ?",
-        "Quels sont vos domaines d'intérêt principaux ?",
-        "Parmi les activités suivantes, lesquelles vous attirent le plus ?"
+        "Quelles étaient vos matières préférées au lycée ?"
     ]
     # On filtre pour ne garder que celles qui existent dans feature_cols
     _priority_cols = [c for c in _priority_cols if c in _feature_cols]
@@ -169,7 +165,7 @@ def analyser_profil_complet(profil_dict: Dict[str, Any], top_k: int = 5) -> Dict
 
 
 # ------------------------------------------------------------------
-# 4. Outil LangChain principal
+# 4. Outil LangChain principal (modifié pour toujours retourner un résultat)
 # ------------------------------------------------------------------
 
 @tool
@@ -184,8 +180,8 @@ def analyser_profil_ml(profil_json: str) -> dict:
         - 'Dans quelles activités pensez-vous être naturellement à l\'aise ?'
         - etc. (voir les colonnes du dataset d'entraînement)
 
-    Si le profil est incomplet (certaines colonnes prioritaires manquent), l'outil retournera
-    une liste de questions complémentaires à poser à l'utilisateur.
+    Même si le profil est incomplet, l'outil retourne une recommandation basée sur les données disponibles,
+    avec un indicateur de complétude et les champs manquants.
     """
     # Désérialisation
     try:
@@ -211,21 +207,25 @@ def analyser_profil_ml(profil_json: str) -> dict:
         if not val or str(val).strip() == '':
             missing.append(col)
 
-    # Si des champs prioritaires manquent, on retourne des questions
-    if missing:
-        # On peut aussi faire une recommandation partielle si le profil contient déjà quelques infos
-        # mais on choisit ici de demander des précisions
-        return {
-            "status": "incomplete",
-            "message": "Des informations importantes manquent pour une recommandation fiable. Veuillez répondre aux questions suivantes.",
-            "questions_supplementaires": missing,
-            "profil_partiel": profil_dict
-        }
-
-    # Profil complet : on génère la recommandation
+    # On fait toujours la prédiction avec les données disponibles
     resultat = analyser_profil_complet(profil_dict, top_k=5)
     resultat["status"] = "success"
     resultat["source"] = f"Modèle ML ({_model_name})"
+    
+    if missing:
+        resultat["completeness"] = "partial"
+        resultat["missing_fields"] = missing
+        resultat["message"] = "Le profil est incomplet. Les recommandations sont basées sur les informations fournies. Pour une recommandation plus précise, veuillez fournir les champs manquants."
+        # On abaisse la confiance si le profil est incomplet
+        if resultat["confidence"] == "high":
+            resultat["confidence"] = "medium"
+        elif resultat["confidence"] == "medium":
+            resultat["confidence"] = "low"
+    else:
+        resultat["completeness"] = "complete"
+        resultat["missing_fields"] = []
+        resultat["message"] = "Profil complet. Recommandation basée sur toutes les informations disponibles."
+    
     return resultat
 
 
