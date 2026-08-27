@@ -51,7 +51,7 @@ Les données fournies sont synthétiques. Le système ne réalise aucun diagnost
 
   agents/__init__.py – Package initialisé.
 
-- ### **Livrable 2** : Fichier livrable-2-instructions-installation-éxécution.md
+- ### **Livrable 2** : Le fichier se trouve dans la répertoire racine nommée livrable-2-instructions-installation-éxécution.md
 
 - ### **Livrable 3** : Le mécanisme de collecte est documenté dans le notebook et dans le rapport.
 
