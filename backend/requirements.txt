@@ -28,3 +28,4 @@ langchain-google-genai
 langchain-classic
 
 huggingface-hub>=0.25
+unidecode
