@@ -1,6 +1,6 @@
 from google import genai
 
-from backend.config import settings
+from config import settings
 
 
 def generate_text(prompt: str) -> str:
