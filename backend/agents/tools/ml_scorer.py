@@ -106,7 +106,6 @@ def extraire_notes_regex(texte: str) -> dict:
     for col, mots in synonymes.items():
 
         for mot in mots:
-
             # CAS 1 :
             # "16 en maths"
             # "16/20 en maths"
