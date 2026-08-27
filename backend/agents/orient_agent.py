@@ -36,7 +36,7 @@ class OrientIAAgent:
             )
 
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-3.6-flash",
+            model="gemini-3.5-flash-lite",
             google_api_key=api_key,
             temperature=0.0,
         )
